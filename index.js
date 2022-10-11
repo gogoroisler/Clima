@@ -12,6 +12,12 @@ window.addEventListener("load", () => {
 
     let wind = document.getElementById("wind")
 
+    let tempMin = document.getElementById("temp-min")
+    let tempMax = document.getElementById("temp-max")
+
+    let hum = document.getElementById("humidity")
+    let tempFeel = document.getElementById("temp-feel")
+
     //Usamos geolocation para obtener los valores de lon y lat
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition( position =>{
@@ -37,7 +43,7 @@ window.addEventListener("load", () => {
                 let desc = data.weather[0].description
                 tempDesc.textContent = desc.toUpperCase()
 
-                location.textContent = data.name
+                location.textContent = data.name + ", " + data.sys.country
 
                 wind.textContent = `${data.wind.speed} m/s`
 
@@ -72,7 +78,17 @@ window.addEventListener("load", () => {
                     break;
                     default:
                 }
+                let min = Math.round(data.main.temp_min)
+                tempMin.textContent = `${min} °C`
 
+                let max = Math.round(data.main.temp_max)
+                tempMax.textContent = `${max} °C`
+
+                let feel = Math.round(data.main.feels_like)
+                tempFeel.textContent = `${feel} °C`
+
+                let humm = Math.round(data.main.humidity)
+                hum.textContent = `${humm} %`
 
             })
             .catch( error =>{
