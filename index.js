@@ -1,3 +1,6 @@
+const myModule = (()=>{
+    
+    "use strict";
 // pedido de geolocalizacion
 window.addEventListener("load", () => {
     // Definimos variables longitud y latitud
@@ -97,3 +100,4 @@ window.addEventListener("load", () => {
         })
     }
 })
+})();
