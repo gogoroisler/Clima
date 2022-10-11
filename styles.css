@@ -1,7 +1,3 @@
-html{
-    overflow: hidden;
-    height: 100%;    
-}
 
 *{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -12,7 +8,7 @@ html{
 }
 
 body{
-    height: 90vh;
+    margin:20%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -65,15 +61,8 @@ body{
 }
 
 @media  screen and (max-width: 710px) {
-body{
-    position: relative;
-    height: 100%;
-    overflow-y: scroll;
-}
 
     #container{
-       margin-top: 40vh;
-       margin-bottom: 10vh;
         grid-template-columns: 1fr 1fr;
        
     }
@@ -81,9 +70,7 @@ body{
 
     @media  screen and (max-width: 482px) {
         #container{
-            margin-top: 160vh;
-            margin-bottom: 10vh;
-     
+    
             grid-template-columns: 1fr;   
         }
 }
