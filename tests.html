@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tests — Clima en tiempo real</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a5f 100%);
+            background-attachment: fixed;
+            padding: 40px 20px;
+            color: aliceblue;
+        }
+
+        .header {
+            max-width: 720px;
+            margin: 0 auto 32px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.55;
+        }
+
+        .summary {
+            max-width: 720px;
+            margin: 0 auto 24px;
+            padding: 16px 24px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            gap: 24px;
+        }
+
+        .summary .pass { color: #86efac; }
+        .summary .fail { color: #fca5a5; }
+
+        .test-list {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .test-item {
+            padding: 14px 20px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: grid;
+            grid-template-columns: 24px 1fr;
+            gap: 12px;
+            align-items: start;
+        }
+
+        .test-item.pass { border-left: 3px solid #86efac; }
+        .test-item.fail { border-left: 3px solid #f87171; background: rgba(220, 50, 50, 0.1); }
+
+        .test-icon { font-size: 1rem; margin-top: 1px; }
+        .test-desc { font-size: 0.9rem; line-height: 1.4; }
+
+        .test-detail {
+            margin-top: 6px;
+            font-size: 0.78rem;
+            opacity: 0.65;
+            font-family: monospace;
+        }
+
+        .group-label {
+            max-width: 720px;
+            margin: 24px auto 8px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.45;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Suite de tests — WeatherUtils</h1>
+        <p>Funciones puras: toF · formatTemp · getWeatherIcon</p>
+    </div>
+
+    <div class="summary" id="summary"></div>
+
+    <div id="output"></div>
+
+    <script src="utils.js"></script>
+    <script src="tests.js"></script>
+    <script>
+        const results = TestRunner.runAll();
+
+        const passed = results.filter(r => r.pass).length;
+        const failed = results.length - passed;
+
+        document.getElementById("summary").innerHTML = `
+            <span class="pass">✓ ${passed} pasaron</span>
+            <span class="fail">${failed > 0 ? `✗ ${failed} fallaron` : "✗ 0 fallaron"}</span>
+            <span style="opacity:0.4">${results.length} total</span>
+        `;
+
+        const groups = {
+            "toF":             results.filter(r => r.description.startsWith("toF")),
+            "formatTemp":      results.filter(r => r.description.startsWith("formatTemp")),
+            "getWeatherIcon":  results.filter(r => r.description.startsWith("getWeatherIcon")),
+        };
+
+        const output = document.getElementById("output");
+
+        for (const [group, items] of Object.entries(groups)) {
+            const label = document.createElement("p");
+            label.className = "group-label";
+            label.textContent = group;
+            output.appendChild(label);
+
+            const list = document.createElement("div");
+            list.className = "test-list";
+
+            for (const r of items) {
+                const item = document.createElement("div");
+                item.className = `test-item ${r.pass ? "pass" : "fail"}`;
+
+                const detail = r.pass
+                    ? `resultado: ${JSON.stringify(r.actual)}`
+                    : `esperado: ${JSON.stringify(r.expected)} · obtenido: ${JSON.stringify(r.actual)}`;
+
+                item.innerHTML = `
+                    <span class="test-icon">${r.pass ? "✓" : "✗"}</span>
+                    <div>
+                        <div class="test-desc">${r.description}</div>
+                        <div class="test-detail">${detail}</div>
+                    </div>
+                `;
+                list.appendChild(item);
+            }
+
+            output.appendChild(list);
+        }
+    </script>
+</body>
+</html>
