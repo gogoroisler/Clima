@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicación del clima en tiempo real. Consultá temperatura, viento, humedad y más para cualquier ciudad del mundo.">
+    <link rel="icon" type="image/svg+xml" href="animated/day.svg">
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="index.js" defer></script>
+    <title>Clima en tiempo real</title>
+</head>
+<body>
+    <main>
+        <form id="search-form" class="search-form">
+            <label for="city-input" class="sr-only">Buscar ciudad</label>
+            <input type="text" id="city-input" placeholder="Buscar ciudad..." autocomplete="off" />
+            <button type="submit">Buscar</button>
+        </form>
+
+        <p id="status-message" class="status-message" aria-live="polite"></p>
+
+        <div id="container" class="hidden">
+            <div class="box">
+                <h1 id="temp-value"></h1>
+                <p id="temp-desc"></p>
+                <button id="unit-toggle" class="unit-toggle">Cambiar a °F</button>
+            </div>
+            <div class="box">
+                <h2 id="location"></h2>
+                <img id="animated-icon" src="" alt="Ícono del clima actual" width="120">
+            </div>
+            <div class="box">
+                <h3>Viento</h3>
+                <p id="wind-dir"></p>
+                <p id="wind"></p>
+            </div>
+            <div class="box">
+                <h3>Sensación térmica</h3>
+                <p id="temp-feel"></p>
+            </div>
+            <div class="box">
+                <h3>Humedad</h3>
+                <p id="humidity"></p>
+            </div>
+            <div class="box">
+                <h3>Temp. Máx / Mín</h3>
+                <p id="temp-max"></p>
+                <p id="temp-min"></p>
+            </div>
+            <div class="box">
+                <h3>Visibilidad</h3>
+                <p id="visibility"></p>
+            </div>
+            <div class="box">
+                <h3>Nubosidad</h3>
+                <p id="cloudiness"></p>
+            </div>
+            <div class="box">
+                <h3>Amanecer / Atardecer</h3>
+                <p id="sunrise"></p>
+                <p id="sunset"></p>
+            </div>
+        </div>
+
+        <p id="last-updated" class="last-updated hidden"></p>
+
+        <section id="forecast-section" class="forecast-section hidden">
+            <h2 class="forecast-title">Pronóstico 5 días</h2>
+            <div id="forecast-cards" class="forecast-cards"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>Desarrollado por <a href="https://github.com/gogoroisler" target="_blank" rel="noopener">Santiago Gonzalez Roisler</a></span>
+        <div class="footer-links">
+            <a href="https://github.com/gogoroisler" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </footer>
+</body>
+</html>
