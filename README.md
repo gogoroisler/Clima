@@ -1,5 +1,7 @@
 # Clima en tiempo real
 
+🔗 **[Ver sitio en vivo](https://gogoroisler.github.io/Clima/)**
+
 Aplicación web que muestra el clima actual usando la geolocalización del usuario o búsqueda por nombre de ciudad. Construida con HTML, CSS y JavaScript vanilla — sin frameworks ni dependencias externas.
 
 ## Funcionalidades
